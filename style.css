@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #ffb347 0%, #d9480f 100%);
+    margin: 0;
+    min-height: 100vh;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.form-box {
+    background: #ffffff;
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 340px;
+    text-align: center;
+}
+
+.brand-icon {
+    font-size: 40px;
+}
+
+h1 {
+    color: #d9480f;
+    margin: 5px 0 0;
+    font-size: 24px;
+}
+
+.tagline {
+    color: #999;
+    font-size: 12px;
+    margin: 2px 0 0;
+    font-style: italic;
+}
+
+h2 {
+    color: #333;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 25px 0 5px;
+    border-top: 1px solid #f1f1f1;
+    padding-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 10px;
+}
+
+label {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+}
+
+input {
+    padding: 10px 12px;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #d9480f;
+}
+
+button {
+    margin-top: 22px;
+    padding: 12px;
+    background: #d9480f;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #b8380a;
+}
+
+.msg {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.error {
+    background: #ffe3e3;
+    color: #c92a2a;
+}
+
+.success {
+    background: #ebfbee;
+    color: #2b8a3e;
+}
+
+.link {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #666;
+}
+
+.link a {
+    color: #d9480f;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
