@@ -7,7 +7,7 @@ $db_pass = getenv("MYSQLPASSWORD") ?: "njoYcoGfOcgaJRikRgtwAAaDFtVrlwWO";
 $db_name = getenv("MYSQL_DATABASE") ?: "railway";
 $db_port = getenv("MYSQLPORT") ?: 3306;
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name, $db_port);
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name, (int)$db_port);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
