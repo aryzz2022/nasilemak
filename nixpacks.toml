@@ -1,2 +1,2 @@
-[providers]
-php = { pdo_mysql = true }
+[variables]
+NIXPACKS_PHP_EXTENSIONS = "mysqli"
