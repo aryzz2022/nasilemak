@@ -1,5 +1,18 @@
 <?php
+require_once 'db_connect.php';
+
+// Contoh mengambil semua data pengguna:
+$stmt = $conn->query("SELECT * FROM users");
+$users = $stmt->fetchAll();
+
+// Contoh mengambil data dengan syarat (Prepared Statement):
+$stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+$stmt->execute(['email' => $user_email]);
+$user = $stmt->fetch();
+?>
+<?php
 require "db_connect.php";
+
 
 
 $error = "";
