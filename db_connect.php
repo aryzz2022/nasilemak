@@ -1,10 +1,10 @@
 <?php
 // db_connect.php - Database connection settings for Railway
 
-$db_host = getenv("MYSQLHOST") ?: "localhost";
+$db_host = getenv("MYSQLHOST") ?: "mysql.railway.internal";
 $db_user = getenv("MYSQLUSER") ?: "root";
-$db_pass = getenv("MYSQLPASSWORD") ?: "kptm123";
-$db_name = getenv("MYSQL_DATABASE") ?: "nasi_lemak_bob";
+$db_pass = getenv("MYSQLPASSWORD") ?: "njoYcoGfOcgaJRikRgtwAAaDFtVrlwWO";
+$db_name = getenv("MYSQL_DATABASE") ?: "railway";
 $db_port = getenv("MYSQLPORT") ?: 3306;
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name, $db_port);
