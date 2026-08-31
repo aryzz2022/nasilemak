@@ -1,27 +1,38 @@
 <?php
-include 'db_connect.php';
+// Panggil sambungan pangkalan data PDO
+require_once 'db_connect.php';
+
 $error = "";
 $success = "";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST["username"]);
     $password = $_POST["password"];
+
     if ($username === "" || $password === "") {
         $error = "Please fill in both fields.";
     } else {
-        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows > 0) {
-            $error = "That username is already taken.";
-        } else {
-            $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $insert = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-            $insert->bind_param("ss", $username, $hashed);
-            $insert->execute();
-            $success = "Account created! You can now log in.";
+        try {
+            // 1. Semak sama ada username sudah wujud (PDO Prepared Statement)
+            $stmt = $conn->prepare("SELECT id FROM users WHERE username = :username");
+            $stmt->execute(['username' => $username]);
+
+            if ($stmt->fetch()) {
+                $error = "That username is already taken.";
+            } else {
+                // 2. Hash password dan masukkan pengguna baharu ke pangkalan data
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
+                $insert = $conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+                $insert->execute([
+                    'username' => $username,
+                    'password' => $hashed
+                ]);
+
+                $success = "Account created! You can now log in.";
+            }
+        } catch (PDOException $e) {
+            $error = "Database error: " . $e->getMessage();
         }
-        $stmt->close();
     }
 }
 ?>
