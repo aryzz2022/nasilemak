@@ -1,7 +1,6 @@
 {
   "providers": ["php"],
   "phpExtensions": [
-    "mysqli",
-    "pdo_mysql"
+    "mysqli"
   ]
 }
