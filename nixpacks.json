@@ -1,6 +1,0 @@
-{
-  "providers": ["php"],
-  "phpExtensions": [
-    "mysqli"
-  ]
-}
