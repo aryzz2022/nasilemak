@@ -1,19 +1,6 @@
 <?php
-require_once 'db_connect.php';
-
-// Contoh mengambil semua data pengguna:
-$stmt = $conn->query("SELECT * FROM users");
-$users = $stmt->fetchAll();
-
-// Contoh mengambil data dengan syarat (Prepared Statement):
-$stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
-$stmt->execute(['email' => $user_email]);
-$user = $stmt->fetch();
-?>
-<?php
-require "db_connect.php";
-
-
+// Panggil sambungan pangkalan data PDO
+require_once "db_connect.php";
 
 $error = "";
 
@@ -24,27 +11,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($username === "" || $password === "") {
         $error = "Please enter both username and password.";
     } else {
-        $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        try {
+            // Menggunakan Prepared Statement versi PDO
+            $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = :username");
+            $stmt->execute(['username' => $username]);
+            $user = $stmt->fetch();
 
-        if ($result->num_rows === 1) {
-            $user = $result->fetch_assoc();
+            if ($user) {
+                // Semak kata laluan (password)
+                if (password_verify($password, $user["password"])) {
+                    // Kata laluan betul - simpan maklumat ke dalam SESSION
+                    $_SESSION["user_id"] = $user["id"];
+                    $_SESSION["username"] = $user["username"];
 
-            if (password_verify($password, $user["password"])) {
-                // Correct password - log the user in
-                $_SESSION["user_id"] = $user["id"];
-                $_SESSION["username"] = $user["username"];
-                header("Location: INDEX.php");
-                exit;
+                    // Direct pengguna ke laman index.php
+                    header("Location: index.php");
+                    exit;
+                } else {
+                    $error = "Incorrect username or password.";
+                }
             } else {
                 $error = "Incorrect username or password.";
             }
-        } else {
-            $error = "Incorrect username or password.";
+        } catch (PDOException $e) {
+            $error = "Database error: " . $e->getMessage();
         }
-        $stmt->close();
     }
 }
 ?>
@@ -53,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Nasi Lemak Bob</title>
+  <title>Login - Nasi Lemak Bob</title>
   <link rel="stylesheet" href="style2.css">
 </head>
 <body>
