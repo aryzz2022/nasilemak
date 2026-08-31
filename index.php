@@ -2,20 +2,35 @@
 // ============================================================
 // FILE: index.php (Homepage)
 // ============================================================
-// Kod ini akan memaparkan nama pengguna yang telah log masuk
-// dari session yang disimpan semasa pendaftaran/login.
-// ============================================================
 
-session_start();
-
-// Include database connection
-include 'db_connect.php';
+// Panggil fail sambungan pangkalan data (session_start sudah ada di sini)
+require_once 'db_connect.php';
 
 // Semak sama ada user telah log masuk
 $logged_in = isset($_SESSION["user_id"]);
+$username = "";
 
-// Dapatkan nama pengguna dari session (jika ada)
-$username = isset($_SESSION["username"]) ? $_SESSION["username"] : "";
+// Jika pengguna telah log masuk, dapatkan maklumat terkini pengguna menggunakan PDO
+if ($logged_in) {
+    if (isset($_SESSION["username"])) {
+        $username = $_SESSION["username"];
+    } else {
+        try {
+            // Menggunakan Prepared Statement (PDO) untuk keselamatan
+            $stmt = $conn->prepare("SELECT username FROM users WHERE id = :id");
+            $stmt->execute(['id' => $_SESSION["user_id"]]);
+            $user = $stmt->fetch();
+            
+            if ($user) {
+                $username = $user['username'];
+                $_SESSION["username"] = $username; // Simpan dalam session untuk kegunaan seterusnya
+            }
+        } catch (PDOException $e) {
+            // Abaikan ralat secara senyap jika gagal mendapatkan nama
+            $username = "Pengguna";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -254,7 +269,7 @@ $username = isset($_SESSION["username"]) ? $_SESSION["username"] : "";
     .site-footer {
       text-align: center;
       padding: 1.8rem 2rem;
-      margin-top: 3rem;
+      margin-top: auto;
       border-top: 1px solid #e2d3c4;
       color: #5f4a39;
       font-weight: 400;
