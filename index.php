@@ -348,8 +348,8 @@ if ($logged_in) {
 
   <!-- ===== HERO ===== -->
   <header class="hero">
-    <h1>Nasi Lemak Bob</h1>
-    <p class="tagline">Sedap </p>
+    <h1>Nasi Lemak Rosli</h1>
+    <p class="tagline">Sedap Tak Boleh Tahan </p>
     <p class="hero-text">
       Freshly made nasi lemak, delivered hot and fragrant right to your door.
     </p>
