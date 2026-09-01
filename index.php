@@ -349,7 +349,7 @@ if ($logged_in) {
   <!-- ===== HERO ===== -->
   <header class="hero">
     <h1>Nasi Lemak Bob</h1>
-    <p class="tagline">Sedap tak boleh tahan</p>
+    <p class="tagline">Sedap </p>
     <p class="hero-text">
       Freshly made nasi lemak, delivered hot and fragrant right to your door.
     </p>
