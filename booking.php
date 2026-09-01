@@ -220,30 +220,40 @@
         </div>
       </form>
 
-      <!-- ===== PHP RESULT ===== -->
+      <!-- ===== PHP RESULT (PDO) ===== -->
       <?php
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          // basic sanitization (optional but good practice)
-          $name   = htmlspecialchars(trim($_POST['name']));
-          $email  = htmlspecialchars(trim($_POST['email']));
-          $date   = htmlspecialchars(trim($_POST['date']));
-          $time   = htmlspecialchars(trim($_POST['time']));
-          $guests = intval($_POST['guests']);
+          // Pembersihan asas maklumat input
+          $name   = htmlspecialchars(trim($_POST['name'] ?? ''));
+          $email  = htmlspecialchars(trim($_POST['email'] ?? ''));
+          $date   = htmlspecialchars(trim($_POST['date'] ?? ''));
+          $time   = htmlspecialchars(trim($_POST['time'] ?? ''));
+          $guests = intval($_POST['guests'] ?? 0);
 
-          // prevent empty fields just in case
+          // Memastikan tiada ruang kosong
           if (!empty($name) && !empty($email) && !empty($date) && !empty($time) && $guests > 0) {
-              $sql = "INSERT INTO bookings (name, email, date, time, guests) 
-                      VALUES ('$name', '$email', '$date', '$time', '$guests')";
+              try {
+                  // Menggunakan PDO Prepared Statement
+                  $sql = "INSERT INTO bookings (name, email, date, time, guests) 
+                          VALUES (:name, :email, :date, :time, :guests)";
+                  
+                  $stmt = $conn->prepare($sql);
+                  $stmt->execute([
+                      ':name'   => $name,
+                      ':email'  => $email,
+                      ':date'   => $date,
+                      ':time'   => $time,
+                      ':guests' => $guests
+                  ]);
 
-              if ($conn->query($sql) === TRUE) {
                   echo '<div class="alert alert-custom mt-4 d-flex align-items-center gap-2">
                           <i class="bi bi-check-circle-fill" style="font-size:1.8rem; color:#2b7a4b;"></i>
                           <span><strong>Booking saved!</strong> Thank you, ' . $name . '. We\'ll see you soon.</span>
                         </div>';
-              } else {
+              } catch (PDOException $e) {
                   echo '<div class="alert alert-danger mt-4 d-flex align-items-center gap-2">
                           <i class="bi bi-exclamation-triangle-fill" style="font-size:1.6rem;"></i>
-                          <span><strong>Error:</strong> ' . $conn->error . '</span>
+                          <span><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</span>
                         </div>';
               }
           } else {
