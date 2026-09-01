@@ -285,7 +285,7 @@ if ($logged_in) {
       .navbar {
         padding: 0.9rem 1.5rem;
         flex-direction: column;
-        align-items: stretch;
+        align-items: fixed;
         gap: 0.8rem;
       }
       .nav-links {
