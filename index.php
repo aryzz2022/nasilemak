@@ -65,7 +65,7 @@ if ($logged_in) {
     .navbar {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: right;
       background: #1a110b;
       padding: 0.9rem 4rem;
       box-shadow: 0 6px 24px rgba(0,0,0,0.35);
@@ -284,7 +284,7 @@ if ($logged_in) {
     @media (max-width: 768px) {
       .navbar {
         padding: 0.9rem 1.5rem;
-        flex-direction: row;
+        flex-direction: column;
         align-items: stretch;
         gap: 0.8rem;
       }
