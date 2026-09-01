@@ -354,7 +354,7 @@ if ($logged_in) {
       Freshly made nasi lemak, delivered hot and fragrant right to your door.
     </p>
     <?php if (!$logged_in): ?>
-      <a href="register.php" class="hero-btn"><i class="bi bi-cart-plus"></i> Order Now</a>
+      <a href="register.php" class="hero-btn"><i class="bi bi-cart-plus"></i> Booking Now</a>
     <?php else: ?>
       <a href="menu.php" class="hero-btn"><i class="bi bi-egg-fried"></i> Go to Menu</a>
     <?php endif; ?>
