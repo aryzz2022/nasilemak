@@ -284,8 +284,8 @@ if ($logged_in) {
     @media (max-width: 768px) {
       .navbar {
         padding: 0.9rem 1.5rem;
-        flex-direction: column;
-        align-items: fixed;
+        flex-direction: row;
+        align-items: stretch;
         gap: 0.8rem;
       }
       .nav-links {
