@@ -247,7 +247,7 @@
       <!-- Nasi Lemak Biasa -->
       <div class="col-md-4 col-sm-6">
         <div class="menu-card">
-          <img src="nasi_lemak.JPEG" alt="Nasi Lemak Biasa">
+          <img src="nasi_lemak.jpeg" alt="Nasi Lemak Biasa">
           <div class="card-body">
             <h5 class="card-title">Nasi Lemak Biasa</h5>
             <div class="price"><i class="bi bi-tag-fill"></i> RM 5.00</div>
