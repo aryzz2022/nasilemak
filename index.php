@@ -87,7 +87,7 @@ if ($logged_in) {
 
     .nav-links {
       display: flex;
-      align-items: left;
+      align-items: centered;
       gap: 1.2rem;
       flex-wrap: wrap;
     }
