@@ -179,7 +179,7 @@ if ($logged_in) {
     .hero-btn {
       display: inline-block;
       background: #d9a25f;
-      color: #1a110b;
+      color:#F8F8FF;
       font-weight: 700;
       font-size: 1.1rem;
       padding: 0.8rem 3rem;
